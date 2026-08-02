@@ -6,7 +6,13 @@ use crate::styles::DESIGN_SYSTEM_CSS;
 use dioxus::prelude::*;
 
 /// Tailwind utilities built by the parent `burncloud-client` crate's `build.rs`.
-pub const TAILWIND_CSS: &str = include_str!("../../../../../src/assets/tailwind.css");
+// 删掉原来这行
+// pub const TAILWIND_CSS: &str = include_str!("../../../../../src/assets/tailwind.css");
+
+// 改成运行时加载（需要处理Option/Result）
+pub fn load_tailwind_css() -> Result<String, std::io::Error> {
+    std::fs::read_to_string("src/assets/tailwind.css")
+}
 const SVG_DEFAULTS: &str = "svg { width: 1.5rem; height: 1.5rem; max-width: 100%; }";
 
 /// Inline `<style>` blocks for LiveView / SSR HTML shells.
