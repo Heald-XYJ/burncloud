@@ -5,9 +5,11 @@
 //! facade was backed only by no-op methods and was removed by #621.
 
 mod manifest;
+mod real_model_resolver;
 mod resolver;
 
 pub use manifest::{ModelManifest, Variant};
+pub use real_model_resolver::RealModelResolver;
 pub use resolver::{
     FakeModelResolver, LocalModelUnsupported, LocalModelUnsupportedReason, ModelResolutionError,
     ModelResolutionOutcome, ModelResolutionRequest, ModelResolver, ResolvedModel,
