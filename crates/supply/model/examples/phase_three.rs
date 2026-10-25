@@ -97,7 +97,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let arguments = parse_arguments()?;
     let manifest_json = fs::read_to_string(&arguments.manifest)?;
     let manifests: Vec<ModelManifest> = serde_json::from_str(&manifest_json)?;
-    let resolver = RealModelResolver::new(manifests);
+    let resolver = RealModelResolver::new(manifests)?;
     let hardware = HardwareProfile {
         cpu_threads: 0,
         memory_bytes: arguments.ram_bytes,

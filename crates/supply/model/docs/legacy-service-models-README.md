@@ -1,8 +1,9 @@
 # BurnCloud Service Models
 
-Supply-owned model resolution and HuggingFace discovery helpers.
+Supply-owned model resolution and HuggingFace model catalog discovery helper.
 
-本 crate 当前阶段只实现模型解析、Variant 兼容性过滤和 HuggingFace 发现辅助能力。
+本 crate 当前阶段只实现模型解析、Variant 兼容性过滤和 HuggingFace 模型目录发现辅助能力。
+Resolver 只接收上游准备好的 Manifest，不递归扫描模型文件，也不构建 artifact URI。
 阶段三不新增数据库 CRUD 服务层，也不提前实现 UI、下载执行、Runtime 启动或进程管理。
 
 ## What this crate owns
@@ -10,8 +11,8 @@ Supply-owned model resolution and HuggingFace discovery helpers.
 - 模型清单和 Variant 解析；
 - 本地模型 Resolver 契约及其实现；
 - 模型 Variant 的硬件和 Runtime 兼容性过滤；
-- HuggingFace 模型及文件发现；
-- 下载 URL 和本地数据目录辅助函数。
+- HuggingFace 模型目录发现；
+- 本地数据目录配置辅助函数。
 
 ## What this crate does not own
 
@@ -25,7 +26,7 @@ Supply-owned model resolution and HuggingFace discovery helpers.
 旧的 `ModelService` CRUD facade 调用了 `burncloud-database-model` 中七个空实现方法；
 #621 已移除该虚假能力，不应重新添加。
 
-运行时模型能力事实由 `burncloud-database-model::ModelCapabilityModel` 持久化，定价仍由
+运行时模型能力事实由 `burncloud_supply_model::ModelCapabilityModel` 持久化，定价仍由
 Commerce 负责。
 
 ## Public API constraints
@@ -50,8 +51,8 @@ Commerce 负责。
 
 ```text
 cargo fmt --all -- --check
-cargo clippy -p burncloud-service-models --all-targets --all-features -- -D warnings
-cargo test -p burncloud-service-models
+cargo clippy -p burncloud-supply-model --all-targets --all-features -- -D warnings
+cargo test -p burncloud-supply-model
 ```
 
 ## HuggingFace example
